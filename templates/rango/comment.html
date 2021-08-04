@@ -1,0 +1,17 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+ 
+{% block body_block %}
+{% if comments %}
+<ul>
+    {% for comment in comments %}
+    <p>
+        {{comment.content}}
+    </p>      
+    {% endfor %}
+</ul>
+{% else %}
+<strong>No comment currently in this page.</strong>
+{% endif %}
+<a href="/rango/category/{{ category.slug }}/{{ page.title }}/add_comment/">Add comment</a> <br/>
+{% endblock %}
