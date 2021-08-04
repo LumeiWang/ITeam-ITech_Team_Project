@@ -27,6 +27,21 @@
     {% if user.is_authenticated %}
     <a href="/rango/category/{{ category.slug }}/add_page/">Add Page</a> <br/>
     {% endif %}
+    {% if news %}
+    <ul>
+        {% for page in news %}
+        <li>
+            <a href="/rango/category/{{ category.slug }}/{{ page.title }}/news/">{{ page.title }}</a>
+            <a href="/rango/category/{{ category.slug }}/{{ page.title }}/comment/">View comments</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>No news currently in category.</strong>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="/rango/category/{{ category.slug }}/add_news/">Add News</a> <br/>
+    {% endif %}
     {% else %}
         The specified category does not exist.
     {% endif %}

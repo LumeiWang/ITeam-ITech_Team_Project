@@ -17,6 +17,8 @@ from django.contrib.auth import logout
 from datetime import datetime
 from rango.models import Comment
 from rango.forms import CommentForm
+from rango.models import News
+from rango.forms import NewsForm
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
@@ -46,12 +48,15 @@ def show_category(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category)
+        news = News.objects.filter(categoryID=category.id)
         context_dict['pages'] = pages
         context_dict['category'] = category
+        context_dict['news'] = news
     
     except Category.DoesNotExist:
         context_dict['category'] = None
         context_dict['pages'] = None
+        context_dict['news'] = None
     return render(request, 'rango/category.html', context=context_dict)
 
 @login_required
@@ -163,27 +168,60 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
+def add_news(request, category_name_slug):
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        category = None
+    
+    if category is None:
+        return redirect('/rango/')
+    form = NewsForm()
+
+    if request.method == 'POST':
+        form = NewsForm(request.POST)
+        
+        if form.is_valid():
+            if category:
+                page = form.save(commit=False)
+                page.categoryID = category.id
+                page.user = request.user
+                page.save()
+                return redirect(reverse('rango:show_category',
+                                         kwargs={'category_name_slug':category_name_slug}))
+        else:
+            print(form.errors)
+    context_dict = {'form': form, 'category': category}
+    return render(request, 'rango/add_news.html', context=context_dict)
+
 def show_comment(request, category_name_slug, title):
     context_dict = {}
     try:
         category = Category.objects.get(slug=category_name_slug)
         page = Page.objects.get(title=title)
-        comments = Comment.objects.filter(page=page)
+        if page is None:
+            page = News.objects.get(title=title)
+            comments = Comment.objects.filter(newsID=page.id)
+        comments = Comment.objects.filter(pageID=page.id)
         context_dict['page'] = page
         context_dict['comments'] = comments
         context_dict['category'] = category
     
-    except Page.DoesNotExist:
+    except Category.DoesNotExist:
         context_dict['page'] = None
         context_dict['comments'] = None
         context_dict['category'] = None
     return render(request, 'rango/comment.html', context=context_dict)
 
-
+@login_required
 def add_comment(request, category_name_slug, title):
     try:
         category = Category.objects.get(slug=category_name_slug)
         page = Page.objects.get(title=title)
+        count = 0
+        if page is None:
+            page = News.objects.get(title=title)
+            count = 1
     except Category.DoesNotExist:
         category = None
         page = None
@@ -197,7 +235,10 @@ def add_comment(request, category_name_slug, title):
         if form.is_valid():
             if page:
                 comment = form.save(commit=False)
-                comment.page = page
+                if count == 0:
+                    comment.pageID = page.id
+                else :
+                    comment.newsID = page.id
                 comment.user = request.user
                 comment.save()
                 #return redirect('rango/category/<slug:category_name_slug>/<str:title>/comment/')
@@ -207,3 +248,18 @@ def add_comment(request, category_name_slug, title):
             print(form.errors)
     context_dict = {'form': form, 'category': category, 'page':page}
     return render(request, 'rango/add_comment.html', context=context_dict)
+
+def show_news(request, category_name_slug, title):
+    context_dict = {}
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        news = News.objects.get(title=title)
+        context_dict['news'] = news
+        context_dict['category'] = category
+    
+    except Category.DoesNotExist:
+        context_dict['news'] = None
+        context_dict['category'] = None
+    return render(request, 'rango/news.html', context=context_dict)
+
+

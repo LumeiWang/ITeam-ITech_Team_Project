@@ -1,0 +1,10 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+{{News.title}}
+{% endblock %}
+    
+{% block body_block %}
+        {{news.content}}
+{% endblock %}

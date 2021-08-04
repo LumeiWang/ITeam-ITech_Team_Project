@@ -40,9 +40,20 @@ class UserProfile(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    page = models.ForeignKey(Page, on_delete=models.CASCADE)
-    #newsID = models.IntegerField()
+    #page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    pageID = models.IntegerField(null=True)
+    newsID = models.IntegerField(null=True)
     content = models.CharField(max_length=256)
 
     def __str__(self):
-        return self.user
+        return self.user.username
+
+class News(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    categoryID = models.IntegerField(default=0)
+    title = models.CharField(max_length=32)
+    content = models.CharField(max_length=512)
+
+    def __str__(self):
+        return self.id
+

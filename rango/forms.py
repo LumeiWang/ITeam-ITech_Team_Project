@@ -1,5 +1,5 @@
 from django import forms
-from rango.models import Comment, Page, Category
+from rango.models import News, Comment, Page, Category
 from django.contrib.auth.models import User
 from rango.models import UserProfile
 
@@ -52,6 +52,26 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('content',)
         #exclude = ('category',)
+    
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('url')
+        
+        if url and not url.startswith('http://'):
+            url = f'http://{url}'
+            cleaned_data['url'] = url
+        return cleaned_data
+
+class NewsForm(forms.ModelForm):
+    title = forms.CharField(max_length=128,
+    help_text="Please enter the title of the news.")
+    content = forms.CharField(max_length=512,
+    help_text="Please enter the content of the news.")
+    
+    #views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    class Meta:
+        model = News
+        exclude = ('user','categoryID')
     
     def clean(self):
         cleaned_data = self.cleaned_data
