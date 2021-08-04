@@ -1,3 +1,4 @@
+from django.db.models.fields import NullBooleanField
 from django.db.models.fields.related_descriptors import create_reverse_many_to_one_manager
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -263,3 +264,30 @@ def show_news(request, category_name_slug, title):
     return render(request, 'rango/news.html', context=context_dict)
 
 
+def user_info(request):
+    context_dict = {}
+    user = request.user
+    news = News.objects.filter(user = user)
+    comments = Comment.objects.filter(user = user)
+    context_dict['user'] = user
+    context_dict['news'] = news
+    context_dict['comments'] = comments
+    return render(request, 'rango/user.html', context=context_dict)
+
+def delete(request, data):
+    try:
+        news = News.objects.get(id=data)
+        News.objects.filter(id=data).delete()  
+        return redirect('/rango/user/')
+
+    except News.DoesNotExist:
+        comment = Comment.objects.get(id=data)
+        Comment.objects.filter(id=data).delete() 
+        return redirect('/rango/user/')
+        
+              
+        
+    
+
+
+    
