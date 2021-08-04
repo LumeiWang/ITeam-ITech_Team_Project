@@ -14,10 +14,11 @@ Resultpage
 {% endif %}
 
 {% for post in post_list %}
+
   <div>
-    articles.....
-   
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
   </div>
+
 {% empty %}
   <div class="no-post">
     no article related was published!
