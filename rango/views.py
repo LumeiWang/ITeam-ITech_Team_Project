@@ -23,6 +23,9 @@ def index(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
+    context_dict['ct1'] = category_list[0]
+    context_dict['ct2'] = category_list[1]
+    context_dict['ct3'] = category_list[2]
 
     visitor_cookie_handler(request)
     
