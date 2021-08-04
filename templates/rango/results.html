@@ -1,0 +1,28 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Resultpage
+{% endblock %}
+
+
+
+{% block body_block %}
+
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
+{% for post in post_list %}
+  <div>
+    articles.....
+   
+  </div>
+{% empty %}
+  <div class="no-post">
+    no article related was published!
+  </div>
+{% endfor %}
+
+{% endblock %}
+

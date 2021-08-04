@@ -18,11 +18,13 @@ from datetime import datetime
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
+  
     
     context_dict = {}
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
+
 
     visitor_cookie_handler(request)
     
@@ -159,3 +161,16 @@ def get_server_side_cookie(request, cookie, default_val=None):
     if not val:
         val = default_val
     return val
+
+
+#search view
+def search(request):
+    q = request.GET.get('q')
+    error_msg = ''
+    
+    if not q:
+        error_msg = 'please enter keywords'
+        return render(request, 'rango/errors.html', {'error_msg': error_msg})
+
+    post_list = Page.objects.filter(title__icontains=q)
+    return render(request,'rango/results.html', {'error_msg':error_msg, 'post_list': post_list})
