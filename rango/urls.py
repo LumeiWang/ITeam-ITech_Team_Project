@@ -13,4 +13,5 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
     path('category/', views.category, name='category'),
+    path('allpages/', views.allpages, name='allpages'),
 ]

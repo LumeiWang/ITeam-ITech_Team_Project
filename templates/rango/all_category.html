@@ -8,55 +8,53 @@ All Categories
 {% block body_block %}
 
 
-
-<br/> <br/> <br/> <br/> <br/> <br/>
-
 <div>
-    
-    {% if category_all_views %}
-    <table class="all_cate_table" id="all_cate_table">
-        <!-- <tr>
-            <th>Title</th><th>URL</th><th>Category</th><th>Views</th><th>Likes</th>
-        </tr> -->
-        {% for cate in category_all_views %}
-        <tr style="border-bottom: 2px;  border-bottom: rgb(233, 122, 122);">
-            <td style="text-align: center;">
-                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Category image" width="120" height="120">
-                <h4><a href="{% url 'rango:show_category' cate.slug %}">{{ cate.name }}</a></h4>
-            </td>
-            <td>
-                <p>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</p>
-                <a>Views: {{ cate.views }}  </a>
-                <a>Likes: {{ cate.likes }} </a>
-            </td>
-            <td>
-                {% if pages %}
-                <h4><a href="{% url 'rango:show_category' cate.slug %}" style="font-size:12px">View all content in this category</a></h4>
-                <table class="altrowstable" id="alternatecolor" style="font-size:12px; margin-left: 0px;">
+ <br/> <br/> <br/> <br/> <br/> <br/>
+   
+{% if category_all_views %}
+<table class="all_cate_table" id="all_cate_table">
+    <!-- <tr>
+        <th>Title</th><th>URL</th><th>Category</th><th>Views</th><th>Likes</th>
+    </tr> -->
+    {% for cate in category_all_views %}
+    <tr style="border-bottom: 2px solid;  border-bottom: rgb(233, 122, 122);">
+        <td style="text-align: center;">
+            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Category image" width="120" height="120">
+            <h4><a href="{% url 'rango:show_category' cate.slug %}">{{ cate.name }}</a></h4>
+        </td>
+        <td>
+            <p>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</p>
+            <a>Views: {{ cate.views }}  </a></br>
+            <a>Likes: {{ cate.likes }} </a>
+        </td>
+        <td>
+            {% if pages %}
+            <h4><a href="{% url 'rango:show_category' cate.slug %}" style="font-size:12px">View all content in this category</a></h4>
+            <table class="altrowstable" id="alternatecolor" style="font-size:12px; margin-left: 0px;">
+                <tr>
+                    <th>Title</th><th>URL</th><th>Views</th><th>Likes</th>
+                </tr>
+                {% for page in pages %}
+                    {% if page.category == cate %}
                     <tr>
-                        <th>Title</th><th>URL</th><th>Views</th><th>Likes</th>
+                        <td>{{ page.title }}</a></td>
+                        <td><a href="{{ page.url }}">{{ page.url }}</a></td>
+                        <td>{{ page.views }}</td>
+                        <td>{{ page.likes }}</td>
                     </tr>
-                    {% for page in pages %}
-                        {% if page.category == cate %}
-                        <tr>
-                            <td>{{ page.title }}</a></td>
-                            <td><a href="{{ page.url }}">{{ page.url }}</a></td>
-                            <td>{{ page.views }}</td>
-                            <td>{{ page.likes }}</td>
-                        </tr>
-                        {% endif %}
-                {% endfor %}
-                </table>
-                {% else %}
-                    <strong>There are no Links present.</strong>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
+                    {% endif %}
+            {% endfor %}
+            </table>
+            {% else %}
+                <strong>There are no Links present.</strong>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
 
-    {% else %}
-        <strong>There are no categories present.</strong>
-    {% endif %}
+{% else %}
+    <strong>There are no categories present.</strong>
+{% endif %}
 
 </div>
 

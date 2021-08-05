@@ -65,6 +65,17 @@ def category(request):
 
     return render(request, 'rango/all_category.html', context=context_dict)
 
+def allpages(request):
+    context_dict = {}
+    page_list = Page.objects.order_by('-views')
+
+    context_dict['pages'] = page_list
+
+    return render(request, 'rango/all_pages.html', context=context_dict)
+
+
+
+
 @login_required
 def add_category(request):
     form = CategoryForm()
