@@ -19,9 +19,8 @@ Rango says: <strong>register here!</strong><br />
     {% csrf_token %}
     
     {{ user_form.as_p }}
-    <a href="{% url 'rango:register_official' %}"> Sign up as an offical account</a><br />
+    {{ profile_form.as_p }}
     <input type="submit" name="submit" value="Register" />
 </form>
-
 {% endif %}
 {% endblock %}

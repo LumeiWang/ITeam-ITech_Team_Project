@@ -10,6 +10,7 @@ urlpatterns = [
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('category/<slug:category_name_slug>/add_news/', views.add_news, name='add_news'),
     path('register/', views.register, name='register'), 
+    path('register_official/', views.register_official, name='register_official'), 
     path('login/', views.user_login, name='login'),
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
