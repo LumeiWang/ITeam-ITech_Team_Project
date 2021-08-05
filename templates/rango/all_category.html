@@ -1,0 +1,98 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+ 
+{% block title_block %}
+All Categories
+{% endblock %}
+
+{% block body_block %}
+
+
+
+<br/> <br/> <br/> <br/> <br/> <br/>
+
+<div>
+    
+    {% if category_all_views %}
+    <table class="all_cate_table" id="all_cate_table">
+        <!-- <tr>
+            <th>Title</th><th>URL</th><th>Category</th><th>Views</th><th>Likes</th>
+        </tr> -->
+        {% for cate in category_all_views %}
+        <tr style="border-bottom: 2px;  border-bottom: rgb(233, 122, 122);">
+            <td style="text-align: center;">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Category image" width="120" height="120">
+                <h4><a href="{% url 'rango:show_category' cate.slug %}">{{ cate.name }}</a></h4>
+            </td>
+            <td>
+                <p>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</p>
+                <a>Views: {{ cate.views }}  </a>
+                <a>Likes: {{ cate.likes }} </a>
+            </td>
+            <td>
+                {% if pages %}
+                <h4><a href="{% url 'rango:show_category' cate.slug %}" style="font-size:12px">View all content in this category</a></h4>
+                <table class="altrowstable" id="alternatecolor" style="font-size:12px; margin-left: 0px;">
+                    <tr>
+                        <th>Title</th><th>URL</th><th>Views</th><th>Likes</th>
+                    </tr>
+                    {% for page in pages %}
+                        {% if page.category == cate %}
+                        <tr>
+                            <td>{{ page.title }}</a></td>
+                            <td><a href="{{ page.url }}">{{ page.url }}</a></td>
+                            <td>{{ page.views }}</td>
+                            <td>{{ page.likes }}</td>
+                        </tr>
+                        {% endif %}
+                {% endfor %}
+                </table>
+                {% else %}
+                    <strong>There are no Links present.</strong>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    {% else %}
+        <strong>There are no categories present.</strong>
+    {% endif %}
+
+</div>
+
+
+
+
+
+<div>
+    <p class="white_header">CATEGORIES</p>
+
+    <!-- <div class="search_trans">
+        <form>
+            <input class="search_placeholder" type="text" placeholder="   Search for categories">
+        </form>
+    </div> -->
+
+    <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Search for categories" aria-label="Search"/>
+        <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
+    </form>
+</div>
+
+<div>
+    <p><a id="addCateGo" class="btn btn-secondary my_viewall" href="#" role="button" style="position:absolute; top: 595px; left : 330px">Add a Category Here &raquo;</a></p>
+    <br/>
+    <select name="rank" style="top: 600px; right : 200px">
+        <option>By views</option>
+        <option>By likes</option>
+        <option>Latest</option>
+    </select>
+    <select name="filter" style="top: 600px; left : 160px">
+        <option>All categories</option>
+        <option>My likes</option>
+        <option>My contribution</option>
+    </select>
+</div>
+
+
+{% endblock %}

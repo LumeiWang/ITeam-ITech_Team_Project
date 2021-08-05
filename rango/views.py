@@ -54,6 +54,17 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
     return render(request, 'rango/category.html', context=context_dict)
 
+def category(request):
+    context_dict = {}
+    category_list_like = Category.objects.order_by('-likes')
+    category_list_views = Category.objects.order_by('-views')
+    page_list = Page.objects.order_by('-views')
+
+    context_dict['category_all_views'] = category_list_views
+    context_dict['pages'] = page_list
+
+    return render(request, 'rango/all_category.html', context=context_dict)
+
 @login_required
 def add_category(request):
     form = CategoryForm()

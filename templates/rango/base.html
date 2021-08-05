@@ -60,7 +60,7 @@
               <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'rango:index' %}">Home</a>
                   </li>
                   <li class="nav-item active">
                     <a class="nav-link" href="{% url 'rango:about' %}">About</a>
@@ -87,7 +87,7 @@
                 <!-- search box on navigation bar -->
                 <form class="form-inline mt-2 mt-md-0">
                   <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success my-2 my-sm-0 my_search" type="submit">Search</button>
+                  <button id="nav_search" class="btn btn-outline-success my-2 my-sm-0 my_search" type="submit">Search</button>
                 </form>
               </div>
             </nav>
@@ -98,25 +98,26 @@
         <div class="container marketing">
             <!-- Background image -->
             <div>
-                <img src="{% static 'images/mainPic.PNG' %}" class="back_pic" alt="BackgroundPic">
+                <img class="back_pic" src="{% static 'images/mainPicCut.PNG' %}" alt="BackgroundPic">
             </div>
             <div>
                 {% block body_block %}
+
                 {% endblock %}
             </div>
-
         </div>
-
-
-
 
         <div>
             {% block sidebar_block %}
                 <!-- {% get_category_list category %} -->
             {% endblock %}
         </div>
+
+
         <hr />
-        <div>
+
+
+        <!-- <div style="z-index:1;">
             <ul>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'rango:restricted' %}">Restricted Page</a></li>
@@ -129,7 +130,7 @@
                 <li><a href="{% url 'rango:about' %}">About</a></li>
                 <li><a href="{% url 'rango:index' %}">Index</a></li>
             </ul>
-        </div>
+        </div> -->
 
 
 

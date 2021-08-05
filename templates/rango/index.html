@@ -14,9 +14,9 @@ Rango Olympic Homepage
 </div>
 {% if categories %}
 <div>
-    <p><a class="btn btn-secondary my_viewall" href="#" role="button">View All &raquo;</a></p>
+    <p><a id="viewCate" class="btn btn-secondary my_viewall" href="{% url 'rango:category' %}" role="button">View All &raquo;</a></p>
     <br/>
-    <select name="rank" style="top: 800px;">
+    <select name="rank" style="top: 670px; right : 200px">
         <option>By views</option>
         <option>By likes</option>
         <option>Latest</option>
@@ -66,18 +66,15 @@ Rango Olympic Homepage
 </div>
 {% if pages %}
 <div>
-    <p><a class="btn btn-secondary my_viewall" href="#" role="button">View All &raquo;</a></p>
+    <p><a id="viewPage" class="btn btn-secondary my_viewall" href="#" role="button">View All &raquo;</a></p>
     <br/>
-    <select name="rank2" style="top: 1280px;">
+    <select name="rank2" style="top: 1180px; right : 200px">
         <option>By views</option>
         <option>By likes</option>
         <option>Latest</option>
     </select>
 
 </div>
-{% else %}
-    <strong>There are no Links present.</strong>
-{% endif %}
 <table class="altrowstable" id="alternatecolor">
     <tr>
         <th>Title</th><th>URL</th><th>Category</th><th>Views</th><th>Likes</th>
@@ -92,5 +89,8 @@ Rango Olympic Homepage
     </tr>
     {% endfor %}
 </table>
+{% else %}
+    <strong>There are no Links present.</strong>
+{% endif %}
 
 {% endblock %}
