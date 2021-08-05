@@ -66,11 +66,20 @@ table.altrowstable td {
 .white_header{
   position: absolute;
   top: 200px;
-  right: 450px;
+  right: 440px;
   color:rgb(255, 255, 255);
   font-family: "Lucida Console";
   font-size: 55px;
 }
+
+.white_follower{
+  position: absolute;
+  top: 280px;
+  right: 300px;
+  color:rgb(255, 255, 255);
+  font-family: "Lucida Console";
+  font-size: 30px;
+ }
 
 .search_trans{
   position: absolute;
@@ -121,3 +130,6 @@ table.altrowstable td {
   background-color: rgb(75, 75, 75);
 }
 
+#user_form{
+  margin-left: 30px;
+}
