@@ -75,14 +75,14 @@ table.altrowstable td {
 .search_trans{
   position: absolute;
   top: 350px;
-  right: 420px;
+  right: 400px;
   z-index: 1;
-  width: 400px;
+  width: 450px;
   height: 80px;
   background:#eeefed;
   border:1px solid #eeefed;
   border-radius:3px;
-  font-size: 30px;
+  font-size: 20px;
   filter:alpha(opacity=50);
   opacity:0.8; 
 
