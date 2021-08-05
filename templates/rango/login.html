@@ -1,10 +1,21 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
+
+
 {% block title_block %}
     Login
 {% endblock %}
 {% block body_block %}
 <h1>Login to Rango</h1>
+
+<div>
+    <h3>quick login</h3>
+    <ul class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+
+</div>
+
 <form id="login_form" method="post" action="{% url 'rango:login' %}">
     {% csrf_token %}
     Username: <input type="text" name="username" value="" size="50" />

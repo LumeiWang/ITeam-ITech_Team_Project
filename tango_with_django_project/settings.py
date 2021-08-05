@@ -43,7 +43,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+
+    #allauth settings
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #thrid-party login
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.github',
+    
 ]
+
+SITE_ID = 1   #set siteid
+LOGIN_REDIRECT_URL = '/'  #after login, redirect address
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,6 +89,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
+
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 
 # Database
