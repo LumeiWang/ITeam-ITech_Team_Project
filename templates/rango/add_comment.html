@@ -6,7 +6,8 @@ Add a comment
 {% endblock %}
     
 {% block body_block %}
-        <h1>Add a comment to {{Page.title}}</h1>
+</br> </br> </br> </br>
+        <h1>Add a comment to {{page.title}}</h1>
         <div>
             <form id="add_comment_form" method="post" action="/rango/category/{{ category.slug }}/{{ page.title }}/add_comment/">
                 {% csrf_token %}
@@ -20,3 +21,4 @@ Add a comment
                 <input type="submit" name="submit" value="Add comment" />
             </form>
 {% endblock %}
+

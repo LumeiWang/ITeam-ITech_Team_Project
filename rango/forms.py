@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rango.models import UserProfile
 
 class CategoryForm(forms.ModelForm):
-    name = forms.CharField(max_length=128, help_text="Please enter the category name.")
+    name = forms.CharField(max_length=128, help_text="Please enter the category name:")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -15,9 +15,9 @@ class CategoryForm(forms.ModelForm):
 
 class PageForm(forms.ModelForm):
     title = forms.CharField(max_length=128,
-    help_text="Please enter the title of the page.")
+    help_text="Please enter the title of the page:")
     url = forms.URLField(max_length=200,
-    help_text="Please enter the URL of the page.")
+    help_text="Please enter the URL of the page:")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model = Page
@@ -44,8 +44,10 @@ class UserProfileForm(forms.ModelForm):
         fields = ('website', 'picture',)
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(max_length=256, 
-    help_text="Please enter the comment.")
+    content = forms.CharField( 
+        help_text="Please enter the comment:",
+        max_length=256,
+    )
   
     #views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
@@ -64,9 +66,9 @@ class CommentForm(forms.ModelForm):
 
 class NewsForm(forms.ModelForm):
     title = forms.CharField(max_length=128,
-    help_text="Please enter the title of the news.")
+    help_text="Please enter the title of the news:")
     content = forms.CharField(max_length=512,
-    help_text="Please enter the content of the news.")
+    help_text="Please enter the content of the news:")
     
     #views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:

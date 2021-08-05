@@ -6,7 +6,8 @@ Add a Page
 {% endblock %}
     
 {% block body_block %}
-        <h1>Add a Page to {{Category.name}}</h1>
+</br> </br> </br> </br>
+        <h1>Add a Page to {{category.name}}</h1>
         <div>
             <form id="add_page_form" method="post" action="/rango/category/{{category.slug}}/add_page/">
                 {% csrf_token %}

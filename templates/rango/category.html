@@ -9,35 +9,52 @@
     {% endif %}
 {% endblock %}
 
+
 {% block body_block %}
+</br> </br> </br> </br>
     {% if category %}
     <h1>{{ category.name }}</h1>
+    </br>
+    <h5> Relevent pages</h5>
     {% if pages %}
-    <ul>
+    <table width="600"   cellspacing="15" bordercolor="#A9A9A9">
         {% for page in pages %}
-        <li>
-            <a href="{{ page.url }}">{{ page.title }}</a>
-            <a href="/rango/category/{{ category.slug }}/{{ page.title }}/comment/">View comments</a>
-        </li>
+        <tr>
+            <td>
+                <a href="{{ page.url }}">{{ page.title }}</a>
+            </td>
+            <td>
+                <a href="/rango/category/{{ category.slug }}/{{ page.title }}/comment/">View comments</a>
+            </td>
+            </tr>
         {% endfor %}
-    </ul>
-    {% else %}
+    </table>
+    {% else %}  
     <strong>No pages currently in category.</strong>
+</br>
     {% endif %}
     {% if user.is_authenticated %}
-    <a href="/rango/category/{{ category.slug }}/add_page/">Add Page</a> <br/>
+    <a href="/rango/category/{{ category.slug }}/add_page/">Add new page</a> <br/>
     {% endif %}
+    
+    </br>
+    <h5> Relevent news</h5>
     {% if news %}
-    <ul>
+    <table width="600"   cellspacing="15" bordercolor="#A9A9A9">
         {% for page in news %}
-        <li>
-            <a href="/rango/category/{{ category.slug }}/{{ page.title }}/news/">{{ page.title }}</a>
-            <a href="/rango/category/{{ category.slug }}/{{ page.title }}/comment/">View comments</a>
-        </li>
+        <tr>
+            <td>
+                <a href="/rango/category/{{ category.slug }}/{{ page.title }}/news/">{{ page.title }}</a>
+            </td>
+            <td>
+                <a href="/rango/category/{{ category.slug }}/{{ page.title }}/comment/">View comments</a>
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
     {% else %}
     <strong>No news currently in category.</strong>
+    </br>
     {% endif %}
     {% if user.is_authenticated %}
     <a href="/rango/category/{{ category.slug }}/add_news/">Add News</a> <br/>

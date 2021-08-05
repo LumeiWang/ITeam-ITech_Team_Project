@@ -1,17 +1,40 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
  
+{% block title_block %}
+Comment
+{% endblock %}
+
 {% block body_block %}
+</br> </br> </br> </br>
+
+
+<div>
 {% if comments %}
-<ul>
-    {% for comment in comments %}
-    <p>
-        {{comment.content}}
-    </p>      
-    {% endfor %}
-</ul>
+    <table width="600"   cellspacing="15" bordercolor="#A9A9A9">
+    {% for comment in comments %}  
+    <tr >
+        <td style="text-align: left;" width="10">
+            <p >   {{comment.user.username}}:</p>
+        </td>
+        <td style="text-align: left;" >
+            <p>{{comment.content}} </p>
+        </td>    
+    </tr>
+    {% endfor %}   
+</table>
 {% else %}
 <strong>No comment currently in this page.</strong>
 {% endif %}
-<a href="/rango/category/{{ category.slug }}/{{ page.title }}/add_comment/">Add comment</a> <br/>
+</div>
+</br>
+
+<div>
+<form id="add_comment_form" method="post" action="/rango/category/{{ category.slug }}/{{ page.title }}/add_comment/">
+    {% csrf_token %}
+    <input type="submit" name="submit" value="Add your comment" />
+</form>
+
+</div>
 {% endblock %}
+

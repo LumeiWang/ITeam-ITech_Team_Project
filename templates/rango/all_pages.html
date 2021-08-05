@@ -1,0 +1,73 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+ 
+{% block title_block %}
+All Pages
+{% endblock %}
+
+{% block body_block %}
+<div>
+    <p class="white_header">PAGES</p>
+
+    <!-- <div class="search_trans">
+        <form>
+            <input class="search_placeholder" type="text" placeholder="   Search for categories">
+        </form>
+    </div> -->
+
+    <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Search for pages" aria-label="Search"/>
+        <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
+    </form>
+</div>
+
+<div>
+    <p><a id="find_cate" class="btn btn-secondary my_viewall" href="{% url 'rango:category' %}" role="button" style="position:absolute; top: 595px; left : 330px">Find a category to add your centent &raquo;</a></p>
+    <br/>
+    <select name="rank" style="top: 600px; right : 200px">
+        <option>By views</option>
+        <option>By likes</option>
+        <option>Latest</option>
+    </select>
+    <select name="filter" style="top: 600px; left : 160px">
+        <option>All pages</option>
+        <option>My likes</option>
+        <option>My contribution</option>
+    </select>
+</div>
+
+
+
+<br/> <br/> <br/> <br/> <br/> <br/>
+<div>
+{% if pages %}
+    <table class="altrowstable" id="all_page_table">
+        {% for page in pages %}
+        <tr style="padding-top: 10px;padding-bottom: 10px;">
+            <td nowrap="nowrap">
+                <a href="{{ page.url }}" style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ page.title }}</a>
+                <input type="image" src="/static/images/comment_icon.png" href="#" width="20" height="20" alt="comment_icon" style="float: right;"/>
+                </br>
+                <a>Views: {{ page.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
+                <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            </td>
+
+            <td style="padding-left: 20px;">
+                <a>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <strong>There are no categories present.</strong>
+{% endif %}
+
+</div>
+
+
+
+
+
+
+{% endblock %}

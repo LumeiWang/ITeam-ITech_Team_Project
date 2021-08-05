@@ -4,7 +4,21 @@
 {% block title_block %}
 {{News.title}}
 {% endblock %}
-    
+
 {% block body_block %}
-        {{news.content}}
+</br> </br> </br> </br>
+<table width="600"   cellspacing="15" bordercolor="#A9A9A9">
+        <tr>
+                <td align="center">
+                <h5>{{news.title}}</h5>
+                <h6>{{news.user.username}}</h6>
+                </td>
+        </tr>
+        <tr>
+                <td align="left">
+                <p>{{news.content}}</p>
+                </td> 
+                </td>       
+        </tr>    
+</table>
 {% endblock %}

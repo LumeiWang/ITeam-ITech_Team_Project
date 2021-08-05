@@ -29,6 +29,9 @@ def index(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
+    context_dict['ct1'] = category_list[0]
+    context_dict['ct2'] = category_list[1]
+    context_dict['ct3'] = category_list[2]
 
     visitor_cookie_handler(request)
     
@@ -44,6 +47,17 @@ def about(request):
     context_dict['visits'] = request.session['visits']
     return render(request, 'rango/about.html', context=context_dict)
 
+def category(request):
+    context_dict = {}
+    category_list_like = Category.objects.order_by('-likes')
+    category_list_views = Category.objects.order_by('-views')
+    page_list = Page.objects.order_by('-views')
+
+    context_dict['category_all_views'] = category_list_views
+    context_dict['pages'] = page_list
+
+    return render(request, 'rango/all_category.html', context=context_dict)
+    
 def show_category(request, category_name_slug):
     context_dict = {}
     try:
@@ -97,6 +111,14 @@ def add_page(request, category_name_slug):
             print(form.errors)
     context_dict = {'form': form, 'category': category}
     return render(request, 'rango/add_page.html', context=context_dict)
+
+def allpages(request):
+    context_dict = {}
+    page_list = Page.objects.order_by('-views')
+
+    context_dict['pages'] = page_list
+
+    return render(request, 'rango/all_pages.html', context=context_dict)
 
 
 def register(request):
@@ -169,6 +191,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
+@login_required
 def add_news(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -199,19 +222,19 @@ def show_comment(request, category_name_slug, title):
     context_dict = {}
     try:
         category = Category.objects.get(slug=category_name_slug)
-        page = Page.objects.get(title=title)
-        if page is None:
-            page = News.objects.get(title=title)
-            comments = Comment.objects.filter(newsID=page.id)
+        page = Page.objects.get(title=title)    
         comments = Comment.objects.filter(pageID=page.id)
         context_dict['page'] = page
         context_dict['comments'] = comments
         context_dict['category'] = category
     
-    except Category.DoesNotExist:
-        context_dict['page'] = None
-        context_dict['comments'] = None
-        context_dict['category'] = None
+    except Page.DoesNotExist:
+        page = News.objects.get(title=title)
+        comments = Comment.objects.filter(newsID=page.id)
+        context_dict['page'] = page
+        context_dict['comments'] = comments
+        context_dict['category'] = category
+        
     return render(request, 'rango/comment.html', context=context_dict)
 
 @login_required
@@ -220,12 +243,10 @@ def add_comment(request, category_name_slug, title):
         category = Category.objects.get(slug=category_name_slug)
         page = Page.objects.get(title=title)
         count = 0
-        if page is None:
-            page = News.objects.get(title=title)
-            count = 1
-    except Category.DoesNotExist:
-        category = None
-        page = None
+            
+    except Page.DoesNotExist:
+        page = News.objects.get(title=title)
+        count = 1
     
     if page is None:
         return redirect('/rango/')
@@ -242,7 +263,6 @@ def add_comment(request, category_name_slug, title):
                     comment.newsID = page.id
                 comment.user = request.user
                 comment.save()
-                #return redirect('rango/category/<slug:category_name_slug>/<str:title>/comment/')
                 return redirect(reverse('rango:show_comment',
                                          kwargs={'category_name_slug':category_name_slug, 'title': title}))
         else:
@@ -284,10 +304,8 @@ def delete(request, data):
         comment = Comment.objects.get(id=data)
         Comment.objects.filter(id=data).delete() 
         return redirect('/rango/user/')
-        
-              
-        
-    
+
+
 
 
     
