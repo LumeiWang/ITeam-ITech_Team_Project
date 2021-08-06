@@ -62,4 +62,12 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Likepage(models.Model): 
+    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    page = models.ForeignKey(Page,on_delete=models.CASCADE)
+    likepageid = models.IntegerField(null=True)
 
+
+    def __str__(self): 
+        return self.page.title + "(liked by " + self.user.username + ")" 
