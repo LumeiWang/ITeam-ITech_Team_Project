@@ -17,6 +17,7 @@ All Pages
 </div>
 
 <div>
+ <!-- sorting buttons -->
     <p><a id="find_cate" class="btn btn-secondary my_viewall" href="{% url 'rango:category' %}" role="button" style="position:absolute; top: 595px; left : 330px">Find a category to add your centent &raquo;</a></p>
     <br/>
     <select name="rank" style="top: 600px; right : 200px">
@@ -35,6 +36,7 @@ All Pages
 
 <br/> <br/> <br/> <br/> <br/> <br/>
 <div>
+ <!-- A table to list all the pages -->
 {% if pages %}
 <h2 style="text-align: center;">Pages</h2>
 
@@ -49,7 +51,7 @@ All Pages
                 <a href="{% url 'rango:show_category' page.category.slug %}" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
 
                 <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
+       <!-- like fucntion implement -->
             {% if likepages %}
                 {% for likepage in likepages %}
                     {% if likepage.user == user %}
@@ -81,7 +83,7 @@ All Pages
 
 </br></br></br>
 
-
+ <!-- A table to list all the news -->
 {% if news %}
 <h2 style="text-align: center;">News</h2>
 
