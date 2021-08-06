@@ -364,6 +364,7 @@ def search(request):
     context_dict['pages'] = post_list
     context_dict['cates'] = categorypost_list
     context_dict['news'] = newspost_list
+    context_dict['searchword'] = q
 
 
     return render(request,'rango/results.html', context=context_dict)
