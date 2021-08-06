@@ -195,6 +195,8 @@ def get_server_side_cookie(request, cookie, default_val=None):
 
 @login_required
 def add_news(request, category_name_slug):
+    if request.user.has_perm('rango.add_news')==False:
+        return redirect('/rango/')
     try:
         category = Category.objects.get(name=category_name_slug)
     except Category.DoesNotExist:
@@ -310,7 +312,6 @@ def delete(request, data):
 
 def register_official(request):
     registered = False
-    
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         profile_form = UserProfileForm(request.POST)
@@ -318,6 +319,8 @@ def register_official(request):
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
+            vi = Permission.objects.filter(codename='add_news')[0]
+            user.user_permissions.add(vi)
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
@@ -326,11 +329,13 @@ def register_official(request):
                 profile.picture = request.FILES['picture']
             profile.save()
             registered = True
+            
         else:
             print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
+    
     return render(request,'rango/register_official.html', context = {'user_form': user_form,
                   'profile_form': profile_form, 'registered': registered})
 
