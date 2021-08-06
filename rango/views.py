@@ -210,7 +210,7 @@ def add_news(request, category_name_slug):
         if form.is_valid():
             if category:
                 page = form.save(commit=False)
-                page.categoryID = category.id
+                page.category = category.name
                 page.user = request.user
                 page.save()
                 return redirect(reverse('rango:show_category',
@@ -346,17 +346,27 @@ def myaccount(request):
     context_dict['user_base'] = user
     return render(request, 'rango/myaccount.html', context=context_dict)
 
-#search pages view
+#search all view
 def search(request):
     q = request.GET.get('q')
     error_msg = ''
     
     if not q:
         error_msg = 'please enter keywords'
-        return render(request, 'rango/results.html', {'error_msg': error_msg})
+        return render(request, 'rango/results.html', {'error_msg': error_msg})\
+
+    context_dict = {}
 
     post_list = Page.objects.filter(title__icontains=q)
-    return render(request,'rango/results.html', {'error_msg':error_msg, 'post_list': post_list})
+    categorypost_list = Category.objects.filter(name__icontains=q)
+    newspost_list = News.objects.filter(title__icontains=q)
+    context_dict['error_msg'] = error_msg
+    context_dict['pages'] = post_list
+    context_dict['cates'] = categorypost_list
+    context_dict['news'] = newspost_list
+
+
+    return render(request,'rango/results.html', context=context_dict)
 
 
 

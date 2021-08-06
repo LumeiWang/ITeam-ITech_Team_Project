@@ -56,7 +56,7 @@ class Comment(models.Model):
 
 class News(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    categoryID = models.IntegerField(default=0)
+    category = models.CharField(max_length=512)
     title = models.CharField(max_length=32)
     content = models.CharField(max_length=512)
 

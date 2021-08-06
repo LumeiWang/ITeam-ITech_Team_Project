@@ -7,58 +7,85 @@ Resultpage
 
 <!--show rearch results-->
 {% block body_block %}
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br>
 
 {% if error_msg %}
     <p>{{ error_msg }}</p>
 {% endif %}
 
-<!--show page rearch results-->
-{% if post_list %}
-  {% for post in post_list %}
 
-    <div>
-      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-    </div>
-    
-
-  {% empty %}
-    <div class="no-post">
-      no article related was published!
-    </div>
-  {% endfor %}
-{% endif %}
-
-<!--show categories rearch results-->
-{% if categorypost_list %}
-  {% for categorypost in categorypost_list %}
-
-  <div>
-    <li><a href="{% url 'rango:show_category' categorypost.slug %}">{{ categorypost.name }}</a></li>
+<h2 style="text-align: center;">Categories</h2>
+{% if cates %}
+<div class="row">
+  {% for cate in cates %}
+  <div class="col-lg-4">
+      <br/>
+      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Category image" width="140" height="140">
+      <h4><a href="{% url 'rango:show_category' cate.slug %}"></a>{{ cate.name }}</a></h4>
+      <a>Views: {{ cate.views }} 
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          Likes: {{ cate.likes }} </a>
+      <p>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</p>
   </div>
-
-  {% empty %}
-    <div class="no-post">
-     no categories related was published!
-    </div>
   {% endfor %}
+</div>
+{% else %}
+   <strong>There are no categories related.</strong>
 {% endif %}
 
 
+<h2 style="text-align: center;">Pages</h2>
+<div>
+  {% if pages %}
+      <table class="altrowstable" id="all_page_table">
+          {% for page in pages %}
+          <tr style="padding-top: 10px;padding-bottom: 10px;">
+              <td nowrap="nowrap">
+                  <a href="{{ page.url }}" style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ page.title }}</a>
+                  <a href="/rango/category/{{ page.category.name }}/{{ page.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
+                  </br>
+                  <a>Views: {{ page.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                  <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
+                  <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              </td>
+  
+              <td style="padding-left: 20px;">
+                  <a>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</a>
+              </td>
+          </tr>
+          {% endfor %}
+      </table>
+  {% else %}
+      <strong>There are no pages related.</strong>
+  {% endif %}
+</div>
 
-<!--show news rearch results-->
-{% if newspost_list %}
-  {% for newspost in newspost_list %}
+</br></br>
+<h2 style="text-align: center;">News</h2>
+<div>
+  {% if news %}
+      <table class="altrowstable" id="all_page_table">
+          {% for new in news %}
+          <tr style="padding-top: 10px;padding-bottom: 10px;">
+              <td nowrap="nowrap">
+                  <a style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ new.title }}</a>
+                  <a href="/rango/category/{{ new.category }}/{{ new.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
+                  </br>
+                  <!-- <a>Views: {{ new.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp -->
+                  <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ new.category.name }} </a></br>
+                  <!-- <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp -->
+              </td>
+  
+              <td style="padding-left: 20px;">
+                  <a>Content: {{new.content}}</a>
+              </td>
+          </tr>
+          {% endfor %}
+      </table>
+  {% else %}
+      <strong>There are no News related.</strong>
+  {% endif %}
+</div>
 
-  <div>
-    <li><a href="{{ newspost.url }}">{{ newspost.title }}</a></li>
-  </div>
-
-  {% empty %}
-    <div class="no-post">
-     no news related was published!
-    </div>
-  {% endfor %}
-{% endif %}
 
 {% endblock %}
