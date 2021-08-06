@@ -15,8 +15,9 @@ All Pages
         </form>
     </div> -->
 
-    <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Search for pages" aria-label="Search"/>
+    <!-- search box on pages and news -->
+    <form class="form-inline mt-2 mt-md-0" role="search" method="get" id='searchform' action="{% url 'rango:searchnewsandpages' %}">
+        <input class="form-control mr-sm-2 search_trans" type="search" name = 'n' placeholder="Search for pages and news" aria-label="Search" required>
         <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
     </form>
 </div>
