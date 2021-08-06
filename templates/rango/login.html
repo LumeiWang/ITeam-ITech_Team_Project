@@ -8,12 +8,12 @@
 {% block body_block %}
 <h1>Login to Rango</h1>
 
+<!--thrid party quick login-->
 <div>
     <h3>quick login</h3>
     <ul class="socialaccount_providers">
         {% include "socialaccount/snippets/provider_list.html" with process="login" %}
     </ul>
-
 </div>
 
 <form id="login_form" method="post" action="{% url 'rango:login' %}">
