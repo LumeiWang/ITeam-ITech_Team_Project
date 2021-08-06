@@ -10,7 +10,8 @@
                How to Tango with Django!
             {% endblock %}
         </title>
-
+        
+        <!--page search -->
         <form role="search" method="get" id='searchform' action="{% url 'rango:search' %}">
             {% csrf_token %}
             <input type="search" name="q" placeholder="Search" required>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from rango.models import Category
 from rango.models import Page
 from rango.forms import CategoryForm
@@ -174,3 +174,17 @@ def search(request):
 
     post_list = Page.objects.filter(title__icontains=q)
     return render(request,'rango/results.html', {'error_msg':error_msg, 'post_list': post_list})
+
+
+
+#search category
+def searchcategory(request):
+    c = request.GET.get('c')
+    error_msg = ''
+
+    if not c:
+        error_msg = 'please enter keywords'
+        return render(request, 'rango/errors.html', {'error_msg': error_msg})
+
+    categorypost_list = Category.objects.filter(name__icontains=c)
+    return render(request,'rango/results.html',{'error_msg':error_msg, 'categorypost_list':categorypost_list})
