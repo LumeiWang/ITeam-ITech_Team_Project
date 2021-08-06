@@ -337,7 +337,11 @@ def register_official(request):
 def myaccount(request):
     user = request.user
     context_dict = {}
-    user_prof = UserProfile.objects.get(user=user)
-    context_dict['user_url'] = user_prof.pic_url()
+    if UserProfile.objects.filter(user=user):
+        user_prof = UserProfile.objects.get(user=user)
+        context_dict['user_url'] = user_prof.pic_url()
+    else:
+        context_dict['user_url'] = '/media/default_user.jpg'
+
     context_dict['user_base'] = user
-    return render(request, 'rango/myaccount.html', context=context_dict) 
+    return render(request, 'rango/myaccount.html', context=context_dict)
