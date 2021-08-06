@@ -65,7 +65,7 @@ Rango Olympic Homepage
 </div>
 {% if pages %}
 <div>
-    <p><a id="viewPage" class="btn btn-secondary my_viewall" href="#" role="button">View All &raquo;</a></p>
+    <p><a id="viewPage" class="btn btn-secondary my_viewall" href="{% url 'rango:allpages' %}" role="button">View All &raquo;</a></p>
     <br/>
     <select name="rank2" style="top: 1180px; right : 200px">
         <option>By views</option>
