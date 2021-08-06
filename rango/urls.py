@@ -22,4 +22,9 @@ urlpatterns = [
     path('category/', views.category, name='category'),
     path('allpages/', views.allpages, name='allpages'),
     path('myaccount/', views.myaccount, name='myaccount'),
+    
+    path('search/', views.search, name='search'),   #mapping page search url
+    path('searchcategory/', views.searchcategory, name='searchcategory'),   #mapping categoroy search url
+    path('searchnews/', views.searchnews, name='searchnews'),   #mapping news search url
+
 ]
