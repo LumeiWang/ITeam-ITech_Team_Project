@@ -9,7 +9,7 @@ Add a comment
 </br> </br> </br> </br>
         <h1>Add a comment to {{page.title}}</h1>
         <div>
-            <form id="add_comment_form" method="post" action="/rango/category/{{ category.slug }}/{{ page.title }}/add_comment/">
+            <form id="add_comment_form" method="post" action="/rango/category/{{ category.name }}/{{ page.title }}/add_comment/">
                 {% csrf_token %}
                 {% for hidden in form.hidden_fields %}
                     {{ hidden }}

@@ -6,21 +6,38 @@
 {% endblock %}
 
 {% block body_block %}
-</br> </br> </br> </br>
-<h1>Register for Rango Olympic</h1>
+
+<p class="white_header">Welcome to Rango</p>
 {% if registered %}
-Rango says: <strong>thank you for registering!</strong>
-<a href="{% url 'rango:index' %}">Return to the homepage.</a><br />
+<p class="white_follower">Thank you for your registering! </p>
 {% else %}
-Rango says: <strong>register here!</strong><br />
-<form id="user_form" method="post" action="{% url 'rango:register' %}"
-      enctype="multipart/form-data">
-      
-    {% csrf_token %}
-    
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <input type="submit" name="submit" value="Register" />
-</form>
+<p class="white_follower">Start your rango experience here by </br> registering your own account</p>
+
+<hr class="featurette-divider">
+<div class="row featurette">
+    <div class="col-md-7 order-md-2">
+    <div style="margin-left: 30px; ">
+        <h2 class="featurette-heading" style="margin-top: 0px; font-size: 40px;">Register <span class="text-muted">Here</span></h2>
+        <hr>
+        <a class="lead" style="font-style: italic;font-weight: bold;">Upload your digital ID to sign up as an official account </br>and post your original news! </a> 
+
+        <form id="user_form" class="lead"  method="post" action="{% url 'rango:register' %}"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <input type="submit" name="submit" value="Register" />
+        </form>
+    </div>
+    </div>
+
+    <div class="col-md-5 order-md-1">
+        <img class="featurette-image img-fluid mx-auto" src="{% static 'images/tokyo.jpg' %}" alt="Placeholder image">
+    </div>
+</div>
 {% endif %}
+
+
+
 {% endblock %}

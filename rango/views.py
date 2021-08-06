@@ -20,6 +20,8 @@ from rango.models import Comment
 from rango.forms import CommentForm
 from rango.models import News
 from rango.forms import NewsForm
+from rango.models import UserProfile
+
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
@@ -194,7 +196,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
 @login_required
 def add_news(request, category_name_slug):
     try:
-        category = Category.objects.get(slug=category_name_slug)
+        category = Category.objects.get(name=category_name_slug)
     except Category.DoesNotExist:
         category = None
     
@@ -221,7 +223,7 @@ def add_news(request, category_name_slug):
 def show_comment(request, category_name_slug, title):
     context_dict = {}
     try:
-        category = Category.objects.get(slug=category_name_slug)
+        category = Category.objects.get(name=category_name_slug)
         page = Page.objects.get(title=title)    
         comments = Comment.objects.filter(pageID=page.id)
         context_dict['page'] = page
@@ -240,7 +242,7 @@ def show_comment(request, category_name_slug, title):
 @login_required
 def add_comment(request, category_name_slug, title):
     try:
-        category = Category.objects.get(slug=category_name_slug)
+        category = Category.objects.get(name=category_name_slug)
         page = Page.objects.get(title=title)
         count = 0
             
@@ -273,7 +275,7 @@ def add_comment(request, category_name_slug, title):
 def show_news(request, category_name_slug, title):
     context_dict = {}
     try:
-        category = Category.objects.get(slug=category_name_slug)
+        category = Category.objects.get(name=category_name_slug)
         news = News.objects.get(title=title)
         context_dict['news'] = news
         context_dict['category'] = category
@@ -308,28 +310,34 @@ def delete(request, data):
 
 def register_official(request):
     registered = False
+    
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         profile_form = UserProfileForm(request.POST)
+        
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
-        
+            
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-                profile.save()
-                registered = True
+            profile.save()
+            registered = True
         else:
             print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
-    return render(request,'rango/register_official.html',
-    context = {'user_form': user_form,
-               'profile_form': profile_form,
-               'registered': registered})
+    return render(request,'rango/register_official.html', context = {'user_form': user_form,
+                  'profile_form': profile_form, 'registered': registered})
 
-    
+def myaccount(request):
+    user = request.user
+    context_dict = {}
+    user_prof = UserProfile.objects.get(user=user)
+    context_dict['user_url'] = user_prof.pic_url()
+    context_dict['user_base'] = user
+    return render(request, 'rango/myaccount.html', context=context_dict) 

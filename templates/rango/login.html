@@ -4,14 +4,28 @@
     Login
 {% endblock %}
 {% block body_block %}
-</br> </br> </br> </br>
-<h1>Login to Rango Olympic</h1>
-<form id="login_form" method="post" action="{% url 'rango:login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    <br />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
-</form>
+
+<hr class="featurette-divider">
+<div class="row featurette">
+    <div class="col-md-7 order-md-2">
+    <div style="margin-left: 30px; ">
+        <h2 class="featurette-heading" style="margin-top: 30px; font-size: 40px;">Login <span class="text-muted">Here</span></h2>
+        <hr>
+        <br />
+        <form id="login_form" class="lead" method="post" action="{% url 'rango:login' %}">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br /> <br /> <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br /> <br /> <br />
+            <input type="submit" value="submit" />
+        </form>
+    </div>
+    </div>
+
+    <div class="col-md-5 order-md-1">
+        <img class="featurette-image img-fluid mx-auto" src="{% static 'images/tokyo.jpg' %}" alt="Placeholder image">
+    </div>
+</div>
+
 {% endblock %}

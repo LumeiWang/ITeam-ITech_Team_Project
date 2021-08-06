@@ -30,7 +30,7 @@ Comment
 </br>
 
 <div>
-<form id="add_comment_form" method="post" action="/rango/category/{{ category.slug }}/{{ page.title }}/add_comment/">
+<form id="add_comment_form" method="post" action="/rango/category/{{ category.name }}/{{ page.title }}/add_comment/">
     {% csrf_token %}
     <input type="submit" name="submit" value="Add your comment" />
 </form>

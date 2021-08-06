@@ -24,6 +24,7 @@ class Page(models.Model):
     title = models.CharField(max_length=128)
     url = models.URLField(unique=True)
     views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
 
 
     def __str__(self):
@@ -31,9 +32,14 @@ class Page(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #website = models.URLField(blank=True)
+    # website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    
+    def pic_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
+        else:
+            return '/media/default_user.jpg'
+
     def __str__(self):
         return self.user.username
 
