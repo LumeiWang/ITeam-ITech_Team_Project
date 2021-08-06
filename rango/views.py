@@ -20,7 +20,7 @@ from rango.models import Comment
 from rango.forms import CommentForm
 from rango.models import News
 from rango.forms import NewsForm
-from rango.models import UserProfile
+from rango.models import UserProfile, Likepage
 
 
 def index(request):
@@ -117,8 +117,12 @@ def add_page(request, category_name_slug):
 def allpages(request):
     context_dict = {}
     page_list = Page.objects.order_by('-views')
+    likepage_list = Likepage.objects.order_by('id')
 
     context_dict['pages'] = page_list
+    context_dict['likepages'] = likepage_list
+    context_dict['user'] = request.user
+
 
     return render(request, 'rango/all_pages.html', context=context_dict)
 
@@ -401,4 +405,23 @@ def searchnews(request):
     newspost_list = News.objects.filter(title__icontains=n)
     return render(request,'rango/results.html',{'error_msg':error_msg, 'newspost_list':newspost_list})
 
+@login_required
+def like_page(request, title): 
+    context_dict = {} 
+    current_user = request.user 
+    page = Page.objects.get(title=title)    
 
+    try: 
+        #if like already exists,cancel this like 
+        like = Likepage.objects.get(page = page,user = current_user) 
+        like.delete() 
+        page.likes -=1 
+        page.save(update_fields=['likes']) 
+        context_dict['like'] = None 
+    except Likepage.DoesNotExist: 
+        #if like didn't exists, add this like 
+        page.likes+=1 
+        page.save(update_fields=['likes']) 
+        like = Likepage.objects.get_or_create(page = page,user = current_user) 
+        context_dict['like'] = like 
+    return redirect(reverse('rango:allpages')) 
