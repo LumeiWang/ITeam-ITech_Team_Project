@@ -383,27 +383,37 @@ def search(request):
 #search category
 def searchcategory(request):
     c = request.GET.get('c')
-    error_msg = ''
+    error_msg =''
 
     if not c:
         error_msg = 'please enter keywords'
-        return render(request, 'rango/results.html', {'error_msg': error_msg})
+        return render(request, 'rango/results_cate.html', {'error_msg': error_msg})
 
+    context_dict = {}
     categorypost_list = Category.objects.filter(name__icontains=c)
-    return render(request,'rango/results.html',{'error_msg':error_msg, 'categorypost_list':categorypost_list})
+    context_dict['error_msg'] = error_msg
+    context_dict['cates'] = categorypost_list
+    context_dict['searchword'] = c
+    return render(request,'rango/results_cate.html', context=context_dict)
 
 
-#search news
-def searchnews(request):
+#search news and pages
+def searchnewsandpages(request):
     n = request.GET.get('n')
     error_msg = ''
 
     if not n:
         error_msg = 'please enter keywords'
-        return render(request, 'rango/results.html', {'error_msg': error_msg})
+        return render(request, 'rango/results_newspages.html', {'error_msg': error_msg})
 
+    context_dict = {}
     newspost_list = News.objects.filter(title__icontains=n)
-    return render(request,'rango/results.html',{'error_msg':error_msg, 'newspost_list':newspost_list})
+    post_list = Page.objects.filter(title__icontains=n)
+    context_dict['error_msg'] = error_msg
+    context_dict['pages'] = post_list
+    context_dict['news'] = newspost_list
+    context_dict['searchword'] = n
+    return render(request,'rango/results_newspages.html', context=context_dict)
 
 @login_required
 def like_page(request, title): 
