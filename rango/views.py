@@ -163,7 +163,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
     return val
 
 
-#search view
+#search pages view
 def search(request):
     q = request.GET.get('q')
     error_msg = ''

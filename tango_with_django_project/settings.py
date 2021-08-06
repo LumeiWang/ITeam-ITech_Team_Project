@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     #thrid-party login
-    'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.github',
     
 ]
