@@ -14,6 +14,8 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
 
+
     path('search/', views.search, name='search'),   #mapping page search url
     path('searchcategory/', views.searchcategory, name='searchcategory'),   #mapping categoroy search url
+    path('searchnews/', views.searchnews, name='searchnews'),   #mapping news search url
 ]

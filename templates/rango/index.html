@@ -29,7 +29,20 @@ Homepage
  </div>
  
 
+
+ <!--search news-->
+ <h3>Search by news</h3>
+ <div>
+     <form role="search" method="get" id='searchform' action="{% url 'rango:searchnews' %}">
+         {% csrf_token %}
+         <input type="search" name="n" placeholder="Search" required>
+         <button type="submit"></button>
+     </form>
+ </div>
+
 <div>
+
+
     <h2>Most Liked Categories</h2>
 {% if categories %}
     <ul>

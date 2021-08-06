@@ -29,6 +29,7 @@ class Page(models.Model):
     def __str__(self):
         return self.title
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     website = models.URLField(blank=True)
@@ -36,4 +37,16 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+
+
+
+class News(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    categoryID = models.IntegerField(default=0)
+    title = models.CharField(max_length=32)
+    content = models.CharField(max_length=512)
+
+    def __str__(self):
+        return self.title
 

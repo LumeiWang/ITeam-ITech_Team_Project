@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
-from rango.models import Category
+from rango.models import Category, News
 from rango.models import Page
 from rango.forms import CategoryForm
 from django.shortcuts import redirect
@@ -170,7 +170,7 @@ def search(request):
     
     if not q:
         error_msg = 'please enter keywords'
-        return render(request, 'rango/errors.html', {'error_msg': error_msg})
+        return render(request, 'rango/results.html', {'error_msg': error_msg})
 
     post_list = Page.objects.filter(title__icontains=q)
     return render(request,'rango/results.html', {'error_msg':error_msg, 'post_list': post_list})
@@ -184,7 +184,20 @@ def searchcategory(request):
 
     if not c:
         error_msg = 'please enter keywords'
-        return render(request, 'rango/errors.html', {'error_msg': error_msg})
+        return render(request, 'rango/results.html', {'error_msg': error_msg})
 
     categorypost_list = Category.objects.filter(name__icontains=c)
     return render(request,'rango/results.html',{'error_msg':error_msg, 'categorypost_list':categorypost_list})
+
+
+#search news
+def searchnews(request):
+    n = request.GET.get('n')
+    error_msg = ''
+
+    if not n:
+        error_msg = 'please enter keywords'
+        return render(request, 'rango/results.html', {'error_msg': error_msg})
+
+    newspost_list = News.objects.filter(title__icontains=n)
+    return render(request,'rango/results.html',{'error_msg':error_msg, 'newspost_list':newspost_list})
