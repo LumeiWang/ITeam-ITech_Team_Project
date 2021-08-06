@@ -2,15 +2,10 @@
 {% load staticfiles %}
  
 {% block title_block %}
-    {% if category %}
-        {{ category.name }}
-    {% else %}
-        Unknown Category
-    {% endif %}
+All Pages
 {% endblock %}
 
 {% block body_block %}
-
 <div>
     <p class="white_header">PAGES</p>
 
@@ -21,17 +16,13 @@
     </div> -->
 
     <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Pages in {{ category.name }}" aria-label="Search"/>
-        <button id=page_search_cate class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
+        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Search for pages" aria-label="Search"/>
+        <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
     </form>
 </div>
 
 <div>
-    <a style="position:absolute; top: 595px; left : 690px; font-weight: bold; color: rgb(90, 90, 90); font-size: 23px; ">Category: {{ category.name }}</a>
-    <!-- add user authenticated -->
-    <p><a id="add_page" class="btn btn-secondary my_viewall" href="/rango/category/{{ category.slug }}/add_page/" role="button" style="position:absolute; top: 595px; left : 330px">Add a page here &raquo;</a></p>
-    <p><a id="add_news" class="btn btn-secondary my_viewall" href="#" role="button" style="position:absolute; top: 595px; left : 500px">Add a news here &raquo;</a></p>
-    <!-- add end if -->
+    <p><a id="find_cate" class="btn btn-secondary my_viewall" href="{% url 'rango:category' %}" role="button" style="position:absolute; top: 595px; left : 330px">Find a category to add your centent &raquo;</a></p>
     <br/>
     <select name="rank" style="top: 600px; right : 200px">
         <option>By views</option>
@@ -45,10 +36,11 @@
     </select>
 </div>
 
+
+
 <br/> <br/> <br/> <br/> <br/> <br/>
 <div>
-    {% if category %}
-    {% if pages %}
+{% if pages %}
     <table class="altrowstable" id="all_page_table">
         {% for page in pages %}
         <tr style="padding-top: 10px;padding-bottom: 10px;">
@@ -57,7 +49,7 @@
                 <input type="image" src="/static/images/comment_icon.png" href="#" width="20" height="20" alt="comment_icon" style="float: right;"/>
                 </br>
                 <a>Views: {{ page.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <!-- <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br> -->
+                <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
                 <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             </td>
 
@@ -67,16 +59,15 @@
         </tr>
         {% endfor %}
     </table>
-    {% else %}
-        <strong>No pages currently in category.</strong>
-    {% endif %}
-    {% else %}
-        The specified category does not exist.
-    {% endif %}
-
-
-    {% if user.is_authenticated %}
-    {% endif %} 
+{% else %}
+    <strong>There are no categories present.</strong>
+{% endif %}
 
 </div>
+
+
+
+
+
+
 {% endblock %}

@@ -19,9 +19,8 @@
     <div style="margin-left: 30px; ">
         <h2 class="featurette-heading" style="margin-top: 0px; font-size: 40px;">Register <span class="text-muted">Here</span></h2>
         <hr>
-        <a class="lead" style="margin-left: 30px; ">Sign in with Github </a> 
-        <input type="image" src="{% static 'images/github_icon.png' %}" href="#" width="25" height="25" alt="githubs_icon"/></br>
-        <a class="lead" style="margin-left: 30px; ">&nbsp&nbsp&nbsp&nbsp&nbsp OR &nbsp&nbsp&nbsp&nbsp&nbsp </a>
+        <a class="lead" style="font-style: italic;font-weight: bold;">Upload your digital ID to sign up as an official account </br>and post your original news! </a> 
+
         <form id="user_form" class="lead"  method="post" action="{% url 'rango:register' %}"
             enctype="multipart/form-data">
             {% csrf_token %}
@@ -29,7 +28,6 @@
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
             <input type="submit" name="submit" value="Register" />
-            <a href="{% url 'rango:register_offical' %}">Register as an official account</a>
         </form>
     </div>
     </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rango.models import Category
+from rango.models import Category, UserProfile
 from rango.models import Page
 from rango.forms import CategoryForm
 from django.shortcuts import redirect
@@ -23,6 +23,9 @@ def index(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
+    context_dict['ct1'] = category_list[0]
+    context_dict['ct2'] = category_list[1]
+    context_dict['ct3'] = category_list[2]
 
     visitor_cookie_handler(request)
     
@@ -50,6 +53,28 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
         context_dict['pages'] = None
     return render(request, 'rango/category.html', context=context_dict)
+
+def category(request):
+    context_dict = {}
+    category_list_like = Category.objects.order_by('-likes')
+    category_list_views = Category.objects.order_by('-views')
+    page_list = Page.objects.order_by('-views')
+
+    context_dict['category_all_views'] = category_list_views
+    context_dict['pages'] = page_list
+
+    return render(request, 'rango/all_category.html', context=context_dict)
+
+def allpages(request):
+    context_dict = {}
+    page_list = Page.objects.order_by('-views')
+
+    context_dict['pages'] = page_list
+
+    return render(request, 'rango/all_pages.html', context=context_dict)
+
+
+
 
 @login_required
 def add_category(request):
@@ -116,6 +141,33 @@ def register(request):
     return render(request,'rango/register.html', context = {'user_form': user_form,
                   'profile_form': profile_form, 'registered': registered})
 
+def register_offical(request):
+    registered = False
+    
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+            registered = True
+        else:
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+    return render(request,'rango/register_offical.html', context = {'user_form': user_form,
+                  'profile_form': profile_form, 'registered': registered})
+
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -132,6 +184,15 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'rango/login.html')
+
+def myaccount(request):
+    user = request.user
+    context_dict = {}
+    user_prof = UserProfile.objects.get(user=user)
+    context_dict['user_url'] = user_prof.pic_url()
+    context_dict['user_base'] = user
+    return render(request, 'rango/myaccount.html', context=context_dict)
+
 
 @login_required
 def restricted(request):

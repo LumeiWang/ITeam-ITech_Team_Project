@@ -9,7 +9,11 @@ urlpatterns = [
     path('add_category/', views.add_category, name='add_category'),
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('register/', views.register, name='register'), 
+    path('register_offical/', views.register_offical, name='register_offical'), 
     path('login/', views.user_login, name='login'),
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
+    path('category/', views.category, name='category'),
+    path('allpages/', views.allpages, name='allpages'),
+    path('myaccount/', views.myaccount, name='myaccount'),
 ]
