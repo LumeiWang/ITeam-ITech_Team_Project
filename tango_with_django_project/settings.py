@@ -43,7 +43,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+    
+    #allauth settings
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #thrid-party login
+    'allauth.socialaccount.providers.github',
+
 ]
+SITE_ID = 1   #set siteid
+LOGIN_REDIRECT_URL = '/'  #after login, redirect address
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,6 +99,12 @@ DATABASES = {
     }
 }
 
+#Django backend is independent of allauth login
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
