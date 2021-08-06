@@ -27,6 +27,6 @@ urlpatterns = [
     
     path('search/', views.search, name='search'),   #mapping page search url
     path('searchcategory/', views.searchcategory, name='searchcategory'),   #mapping categoroy search url
-    path('searchnews/', views.searchnews, name='searchnews'),   #mapping news search url
+    path('searchnewsandpages/', views.searchnewsandpages, name='searchnewsandpages'),   #mapping news search url
 
 ]
