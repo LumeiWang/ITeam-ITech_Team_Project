@@ -4,6 +4,7 @@
 {% block title_block %}
 All Categories
 {% endblock %}
+<!-- the page to show all the categories -->
 
 {% block body_block %}
 
@@ -12,10 +13,9 @@ All Categories
  <br/> <br/> <br/> <br/> <br/> <br/>
    
 {% if category_all_views %}
+ <!-- A table to show all the callegoies -->
+
 <table class="all_cate_table" id="all_cate_table">
-    <!-- <tr>
-        <th>Title</th><th>URL</th><th>Category</th><th>Views</th><th>Likes</th>
-    </tr> -->
     {% for cate in category_all_views %}
     <tr style="border-bottom: 2px solid;  border-bottom: rgb(233, 122, 122);">
         <td style="text-align: center;">
@@ -23,12 +23,14 @@ All Categories
             <h4><a href="{% url 'rango:show_category' cate.slug %}">{{ cate.name }}</a></h4>
         </td>
         <td>
+         <!-- description is hard coded due to the lack of time -->
             <p>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</p>
             <a>Views: {{ cate.views }}  </a></br>
             <a>Likes: {{ cate.likes }} </a>
         </td>
         <td>
             {% if pages %}
+         <!-- link to view all tyhe news and pages in this category  -->
             <h4><a href="{% url 'rango:show_category' cate.slug %}" style="font-size:12px">View all content in this category</a></h4>
             <table class="altrowstable" id="alternatecolor" style="font-size:12px; margin-left: 0px;">
                 <tr>
@@ -45,6 +47,7 @@ All Categories
                     {% endif %}
             {% endfor %}
             </table>
+
             {% else %}
                 <strong>There are no Links present.</strong>
             {% endif %}
