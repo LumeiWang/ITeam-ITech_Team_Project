@@ -34,8 +34,6 @@ def index(request):
     context_dict['ct1'] = category_list[0]
     context_dict['ct2'] = category_list[1]
     context_dict['ct3'] = category_list[2]
-    context_dict['ct4'] = category_list[3]
-    context_dict['ct5'] = category_list[4]
 
     visitor_cookie_handler(request)
     
