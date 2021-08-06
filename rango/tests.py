@@ -74,9 +74,9 @@ class Test_News(TestCase):
         self.assertTrue('id="add_page"' in content, 
                         f"{FAILURE_HEADER}There is views and likes shown in website.{FAILURE_FOOTER}")
         
-        class CommentFunction(TestCase):
+class Test_Comment(TestCase):
     """
-    Tests that the comment-related functions are working correctly
+    Tests that the comment-related functions are working correctly. failured
     """
 
     def test_comments(self):
