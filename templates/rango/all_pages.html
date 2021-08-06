@@ -7,16 +7,11 @@ All Pages
 
 {% block body_block %}
 <div>
-    <p class="white_header">PAGES</p>
+    <p class="white_header">PAGES and News</p>
 
-    <!-- <div class="search_trans">
-        <form>
-            <input class="search_placeholder" type="text" placeholder="   Search for categories">
-        </form>
-    </div> -->
-
-    <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Search for pages" aria-label="Search"/>
+    <!-- search box on pages and news -->
+    <form class="form-inline mt-2 mt-md-0" role="search" method="get" id='searchform' action="{% url 'rango:searchnewsandpages' %}">
+        <input class="form-control mr-sm-2 search_trans" type="search" name = 'n' placeholder="Search for pages and news" aria-label="Search" required>
         <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
     </form>
 </div>
@@ -41,6 +36,8 @@ All Pages
 <br/> <br/> <br/> <br/> <br/> <br/>
 <div>
 {% if pages %}
+<h2 style="text-align: center;">Pages</h2>
+
     <table class="altrowstable" id="all_page_table">
         {% for page in pages %}
         <tr style="padding-top: 10px;padding-bottom: 10px;">
@@ -49,8 +46,26 @@ All Pages
                 <a href="/rango/category/{{ page.category.name }}/{{ page.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
                 </br>
                 <a>Views: {{ page.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
+                <a href="{% url 'rango:show_category' page.category.slug %}" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
+
                 <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+            {% if likepages %}
+                {% for likepage in likepages %}
+                    {% if likepage.user == user %}
+                        {% if likepage.page == page %}
+                            <a href="/rango/allpages/{{ page.title }}/likepage/"><input type="image" src="/static/images/like_icon.png"  width="20" height="20" alt="like_icon"/></a>
+                        {% else %}
+                            <a href="/rango/allpages/{{ page.title }}/likepage/"><input type="image" src="/static/images/unlike_icon.png"  width="20" height="20" alt="unlike_icon"/></a>
+                        {% endif %}
+                    {% else %}
+                        <a href="/rango/allpages/{{ page }}/likepage/"><input type="image" src="/static/images/unlike_icon.png"  width="20" height="20" alt="unlike_icon"/></a>
+                    {% endif%}
+                {% endfor %}
+            {% else %}
+            <a href="/rango/allpages/{{ page }}/likepage/"><input type="image" src="/static/images/unlike_icon.png"  width="20" height="20" alt="unlike_icon"/></a>
+            {% endif %}
+
             </td>
 
             <td style="padding-left: 20px;">
@@ -60,8 +75,38 @@ All Pages
         {% endfor %}
     </table>
 {% else %}
-    <strong>There are no categories present.</strong>
+    <strong>There are no pages represent.</strong>
 {% endif %}
+
+
+</br></br></br>
+
+
+{% if news %}
+<h2 style="text-align: center;">News</h2>
+
+<table class="altrowstable" id="all_page_table">
+    {% for page in news %}
+    <tr style="padding-top: 10px;padding-bottom: 10px;">
+        <td nowrap="nowrap">
+            <a href="/rango/category/{{ category.slug }}/{{ page.title }}/news/" style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ page.title }}</a>
+            <a href="/rango/category/{{ category.name }}/{{ page.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
+            </br>
+            <a>Author: {{ page.user.username }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category }} </a></br>
+        </td>
+
+        <td style="padding-left: 20px;">
+            <a>Content: {{page.content}}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+    <strong>No news currently in category.</strong>
+{% endif %}
+
+
 
 </div>
 

@@ -25,6 +25,30 @@ My account{% endblock %}
         <img class="featurette-image img-fluid mx-auto user_pic" src="{{ user_url }}" alt="User Photo placeholder" width="150px", height="150px">
     </div>
 </div>
+</br></br></br></br></br>
+<div>
+    <h2 style="text-align: center;">View your comments here</h2>
+    </br></br>
+    {% if comments %}
+    <ul>
+        {% for comment in comments %}
+        <li>
+            {% if comment.page %}
+            &#91 Page &#93{{comment.page}}:&nbsp<span style="font-weight: bold;">{{ comment.content }}</span>
+            {% endif %}
+            {% if comment.news %}
+            &#91 NEWS &#93{{comment.news}}:&nbsp<span style="font-weight: bold;">{{ comment.content }}</span>
+            {% endif %}
+            <a href="/rango/myaccount/{{ comment.id }}/delete/">delete</a> <br/>
+            
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong >You don't have any comments</strong>
+    {% endif %}
+
+</div>
 
 
 {% else %}

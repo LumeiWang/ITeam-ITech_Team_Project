@@ -71,14 +71,15 @@ All Categories
         </form>
     </div> -->
 
-    <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2 search_trans" type="text" placeholder="Search for categories" aria-label="Search"/>
-        <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
+    <!--search categories-->
+    <form class="form-inline mt-2 mt-md-0" role="search" method="get" id='searchform' action="{% url 'rango:searchcategory' %}">
+        <input class="form-control mr-sm-2 search_trans" type="search" name='c' placeholder="Search categories" aria-label="Search" required>
+        <button id=page_search_cate class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
     </form>
 </div>
 
 <div>
-    <p><a id="addCateGo" class="btn btn-secondary my_viewall" href="/rango/add_category/" role="button" style="position:absolute; top: 595px; left : 330px">Add a Category Here &raquo;</a></p>
+    <p><a id="addCateGo" class="btn btn-secondary my_viewall" href="{% url 'rango:add_category' %}" role="button" style="position:absolute; top: 595px; left : 330px">Add a Category Here &raquo;</a></p>
     <br/>
     <select name="rank" style="top: 600px; right : 200px">
         <option>By views</option>

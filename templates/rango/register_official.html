@@ -21,7 +21,7 @@
         <hr>
         <a class="lead" style="font-style: italic;font-weight: bold;">Upload your digital ID to sign up as an official account </br>and post your original news! </a> 
 
-        <form id="user_form" class="lead"  method="post" action="{% url 'rango:register' %}"
+        <form id="user_form" class="lead"  method="post" action="{% url 'rango:register_official' %}"
             enctype="multipart/form-data">
             {% csrf_token %}
             

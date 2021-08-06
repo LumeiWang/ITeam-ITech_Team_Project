@@ -1,0 +1,85 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Resultpage
+{% endblock %}
+
+<!--show rearch results-->
+{% block body_block %}
+
+<p class="white_header">Results for "{{searchword}}"</p>
+<!-- search box on pages and news -->
+<form class="form-inline mt-2 mt-md-0" role="search" method="get" id='searchform' action="{% url 'rango:searchnewsandpages' %}">
+    <input class="form-control mr-sm-2 search_trans" type="search" name = 'n' placeholder="Search for pages and news" aria-label="Search" required>
+    <button id=page_search class="btn btn-outline-success my-2 my-sm-0 my_search2" type="submit">Search</button>
+</form>
+
+</br></br></br></br></br>
+
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
+
+
+<div>
+    <h2 style="text-align: center;">Pages</h2>
+    {% if pages %}
+
+      <table class="altrowstable" id="all_page_table">
+          {% for page in pages %}
+          <tr style="padding-top: 10px;padding-bottom: 10px;">
+              <td nowrap="nowrap">
+                  <a href="{{ page.url }}" style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ page.title }}</a>
+                  <a href="/rango/category/{{ page.category.name }}/{{ page.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
+                  </br>
+                  <a>Views: {{ page.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                  <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br>
+                  <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              </td>
+
+              <td style="padding-left: 20px;">
+                  <a>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</a>
+              </td>
+          </tr>
+          {% endfor %}
+      </table>
+      {% else %}
+   <strong>There are no Pages related.</strong>
+  {% endif %}
+</div>
+
+</br></br>
+
+<div>
+    <h2 style="text-align: center;">News</h2>
+  {% if news %}
+
+      <table class="altrowstable" id="all_page_table">
+          {% for new in news %}
+          <tr style="padding-top: 10px;padding-bottom: 10px;">
+              <td nowrap="nowrap">
+                  <a style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ new.title }}</a>
+                  <a href="/rango/category/{{ new.category }}/{{ new.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
+                  </br>
+                  <!-- <a>Views: {{ new.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp -->
+                  <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ new.category.name }} </a></br>
+                  <!-- <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp -->
+              </td>
+
+              <td style="padding-left: 20px;">
+                  <a>Content: {{new.content}}</a>
+              </td>
+          </tr>
+          {% endfor %}
+      </table>
+      {% else %}
+   <strong>There are no News related.</strong>
+  {% endif %}
+
+</div>
+
+
+
+{% endblock %}

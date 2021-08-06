@@ -47,8 +47,8 @@ class UserProfile(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     #page = models.ForeignKey(Page, on_delete=models.CASCADE)
-    pageID = models.IntegerField(null=True)
-    newsID = models.IntegerField(null=True)
+    page = models.CharField(max_length=256)
+    news = models.CharField(max_length=256)
     content = models.CharField(max_length=256)
 
     def __str__(self):
@@ -63,3 +63,11 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
+class Likepage(models.Model): 
+    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    page = models.ForeignKey(Page,on_delete=models.CASCADE)
+    likepageid = models.IntegerField(null=True)
+
+
+    def __str__(self): 
+        return self.page.title + "(liked by " + self.user.username + ")" 

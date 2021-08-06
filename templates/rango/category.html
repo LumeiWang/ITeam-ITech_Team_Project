@@ -12,7 +12,7 @@
 {% block body_block %}
 
 <div>
-    <p class="white_header">PAGES</p>
+    <p class="white_header">Pages and News</p>
 
     <!-- <div class="search_trans">
         <form>
@@ -49,6 +49,8 @@
 <div>
     {% if category %}
         {% if pages %}
+        <h2 style="text-align: center;">Pages</h2>
+
         <table class="altrowstable" id="all_page_table">
             {% for page in pages %}
             <tr style="padding-top: 10px;padding-bottom: 10px;">
@@ -74,6 +76,8 @@
 
 
         {% if news %}
+        <h2 style="text-align: center;">News</h2>
+
         <table class="altrowstable" id="all_page_table">
             {% for page in news %}
             <tr style="padding-top: 10px;padding-bottom: 10px;">
@@ -81,13 +85,11 @@
                     <a href="/rango/category/{{ category.slug }}/{{ page.title }}/news/" style="font-style: oblique;font-weight: bold;color: rgb(90, 90, 90);">{{ page.title }}</a>
                     <a href="/rango/category/{{ category.name }}/{{ page.title }}/comment/"><input type="image" src="/static/images/comment_icon.png"  width="20" height="20" alt="comment_icon" style="float: right;"/></a>
                     </br>
-                    <a>Views: {{ page.views }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <!-- <a href="#" style="color: rgb(90, 90, 90);text-decoration: underline;">Category: {{ page.category.name }} </a></br> -->
-                    <a>Likes: {{ page.likes }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <a>Author: {{ page.user.username }} </a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 </td>
 
                 <td style="padding-left: 20px;">
-                    <a>Descriptions: xxxxxx xxxxxxxxx xxxxx xxxxxxx xxxx xxxxxxxxx xxxxxxxx xxxxxxxx xxxxxx xxxxx</a>
+                    <a>Content: {{page.content}}</a>
                 </td>
             </tr>
             {% endfor %}
