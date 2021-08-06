@@ -35,7 +35,12 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    
+    def pic_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
+        else:
+            return '/media/default_user.jpg'
+
     def __str__(self):
         return self.user.username
 

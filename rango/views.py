@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rango.models import Category
+from rango.models import Category, UserProfile
 from rango.models import Page
 from rango.forms import CategoryForm
 from django.shortcuts import redirect
@@ -184,6 +184,15 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'rango/login.html')
+
+def myaccount(request):
+    user = request.user
+    context_dict = {}
+    user_prof = UserProfile.objects.get(user=user)
+    context_dict['user_url'] = user_prof.pic_url()
+    context_dict['user_base'] = user
+    return render(request, 'rango/myaccount.html', context=context_dict)
+
 
 @login_required
 def restricted(request):

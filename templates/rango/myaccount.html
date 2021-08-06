@@ -1,0 +1,35 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+My account{% endblock %}
+
+{% block body_block %}
+
+{% if user.is_authenticated %}
+<hr class="featurette-divider">
+<div class="row featurette">
+    <div class="col-md-7 order-md-2">
+    <div style="margin-left: 30px; ">
+        <h2 class="featurette-heading" style="margin-top: 0px; font-size: 40px;">Hello! <span class="text-muted">{{ user_base.username }}</span></h2>
+        <hr>
+        {% if user_base.email %}
+        <a class="lead">Email: {{ user_base.email }} </a> 
+        {% else %}
+        <a class="lead">You haven't registered an email </a> 
+        {% endif %} 
+    </div>
+    </div>
+
+    <div class="col-md-5 order-md-1">
+        <img class="featurette-image img-fluid mx-auto" src="{{ user_url }}" alt="User Photo placeholder" width="150px", height="150px">
+    </div>
+</div>
+
+
+{% else %}
+<p class="white_header">Sorry</p>
+<p class="white_follower">Please login to view your account</p>
+{% endif %} 
+
+{% endblock %}
