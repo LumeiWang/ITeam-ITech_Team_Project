@@ -133,3 +133,8 @@ table.altrowstable td {
 #user_form{
   margin-left: 30px;
 }
+
+.user_pic{
+  border: solid 4px rgb(134, 134, 134);
+}
+
