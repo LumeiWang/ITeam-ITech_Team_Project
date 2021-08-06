@@ -1,0 +1,64 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Resultpage
+{% endblock %}
+
+<!--show rearch results-->
+{% block body_block %}
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
+<!--show page rearch results-->
+{% if post_list %}
+  {% for post in post_list %}
+
+    <div>
+      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    </div>
+    
+
+  {% empty %}
+    <div class="no-post">
+      no article related was published!
+    </div>
+  {% endfor %}
+{% endif %}
+
+<!--show categories rearch results-->
+{% if categorypost_list %}
+  {% for categorypost in categorypost_list %}
+
+  <div>
+    <li><a href="{% url 'rango:show_category' categorypost.slug %}">{{ categorypost.name }}</a></li>
+  </div>
+
+  {% empty %}
+    <div class="no-post">
+     no categories related was published!
+    </div>
+  {% endfor %}
+{% endif %}
+
+
+
+<!--show news rearch results-->
+{% if newspost_list %}
+  {% for newspost in newspost_list %}
+
+  <div>
+    <li><a href="{{ newspost.url }}">{{ newspost.title }}</a></li>
+  </div>
+
+  {% empty %}
+    <div class="no-post">
+     no news related was published!
+    </div>
+  {% endfor %}
+{% endif %}
+
+{% endblock %}
