@@ -22,28 +22,8 @@
     
         <link href="https://getbootstrap.com/docs/4.0/examples/carousel/carousel.css" rel="stylesheet">
         <link href="/static/css/style.css" rel="stylesheet">
-        <script src="/static/css/function.js"></script>
-        <!-- Function for alternate table color -->
-        <script type="text/javascript">
-            function altRows(id){
-                if(document.getElementsByTagName){ 
-                     
-                    var table = document.getElementById(id); 
-                    var rows = table.getElementsByTagName("tr");
-                      
-                    for(i = 0; i < rows.length; i++){         
-                        if(i % 2 == 0){
-                            rows[i].className = "evenrowcolor";
-                        }else{
-                            rows[i].className = "oddrowcolor";
-                        }     
-                    }
-                }
-            }
-            window.onload=function(){
-                altRows('alternatecolor');
-            }
-        </script>
+        <script src="/static/js/function.js"></script>
+
     
     </head>
 
