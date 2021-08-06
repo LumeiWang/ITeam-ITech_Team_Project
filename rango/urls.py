@@ -22,6 +22,8 @@ urlpatterns = [
     path('category/', views.category, name='category'),
     path('allpages/', views.allpages, name='allpages'),
     path('myaccount/', views.myaccount, name='myaccount'),
+    path('allpages/<str:title>/likepage/', views.like_page, name='like_page'),
+
     
     path('search/', views.search, name='search'),   #mapping page search url
     path('searchcategory/', views.searchcategory, name='searchcategory'),   #mapping categoroy search url
