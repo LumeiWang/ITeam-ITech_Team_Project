@@ -1,3 +1,4 @@
+<!-- Function for alternate table color -->
 function altRows(id){
     if(document.getElementsByTagName){ 
          
