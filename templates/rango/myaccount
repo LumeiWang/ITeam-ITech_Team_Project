@@ -1,0 +1,16 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Rango Olympic Homepage
+{% endblock %}
+
+{% block body_block %}
+
+{% if user.is_authenticated %}
+
+{% else %}
+
+{% endif %} 
+
+{% endblock %}
