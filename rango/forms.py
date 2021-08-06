@@ -19,6 +19,7 @@ class PageForm(forms.ModelForm):
     url = forms.URLField(max_length=200,
     help_text="Please enter the URL of the page:")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model = Page
         exclude = ('category',)
@@ -73,7 +74,7 @@ class NewsForm(forms.ModelForm):
     #views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model = News
-        exclude = ('user','categoryID')
+        exclude = ('user','category')
     
     def clean(self):
         cleaned_data = self.cleaned_data
